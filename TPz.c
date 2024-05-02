@@ -299,7 +299,45 @@ void branche_trav_L(tree* node) {
   print_queue(q);
 }
 
-
+void leaf_trav(tree* node){
+  stack s;
+  queue q;
+  tree* temp=node;
+  if (node!=NULL) {
+    create_stack(&s);
+    create_queue(&q);
+    while(visited(fg(temp))==false && visited(fd(temp))==false){
+      node=temp;
+    while (!empty_stack(s) || node!=NULL) {
+      while (node!=NULL) {
+        push(&s,node);
+        if (visited(fg(node))==false)
+        {
+          node=fg(node);
+        }
+        else{
+          node=NULL;
+        }
+      }
+      pop(&s,&node);
+      if (leaf(node) && visited(node)!=true)
+      {
+        enqueue(&(q),node);
+        ass_visited(node,true);
+      }
+      if (visited(node)==false)
+      {
+         node=fd(node);
+      }
+     else if (fd(node)==NULL){
+      node=NULL;
+     }
+    }
+    create_stack(&s);
+  }
+  }
+  print_queue(q);
+}
 int main()
 {
   tree *example1 = NULL;
@@ -330,8 +368,8 @@ int main()
   printf("\nTesting functions with Example 1:\n");
 
   print_tree(example1, 0);
-  branche_trav_L(example1);
-  
+  //branche_trav_L(example1);
+  leaf_trav(example1);
 
   return 0;
 }
