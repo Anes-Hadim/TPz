@@ -36,8 +36,8 @@ void branche_trav_L(tree* node) {
       pop(&s,&node);
       node=fd(node);
     }
+    print_queue(q);
   }
-  print_queue(q);
 }
 
 void branche_trav_R(tree* node) {
@@ -59,8 +59,8 @@ void branche_trav_R(tree* node) {
       pop(&s,&node);
       node=fg(node);
     }
+    print_queue(q);
   }
-  print_queue(q);
 }
 
 void leaf_trav(tree* node){
@@ -91,50 +91,91 @@ void leaf_trav(tree* node){
       }
       if (visited(node)==false)
       {
-         node=fd(node);
+        node=fd(node);
       }
-     else if (fd(node)==NULL){
-      node=NULL;
-     }
+      else if (fd(node)==NULL){
+        node=NULL;
+      }
     }
     create_stack(&s);
   }
   }
   print_queue(q);
 }
+
+bool children_visited(tree* node) {
+  if (leaf(node)) {
+    return true;
+  } else if (fg(node)!=NULL && fd(node)==NULL) {
+    return visited(fg(node));
+  } else if (fg(node)==NULL && fd(node)!=NULL) {
+    return visited(fd(node));
+  } else {
+    return visited(fg(node)) && visited(fd(node));
+  }
+}
+
+void leaf_trav_L(tree* root){
+  stack s;
+  queue q;
+  tree* node=root;
+  if (node!=NULL) {
+    create_queue(&q);
+    create_stack(&s);
+    while (!visited(root)) {
+      while (!empty_stack(s) || node!=NULL) {
+        while (node!=NULL) {
+          push(&s,node);
+          node=fg(node);
+        }
+        pop(&s,&node);
+        if ( (leaf(node) && !visited(node)) || (!visited(node) && children_visited(node))) {
+          ass_visited(node,true);
+          enqueue(&q,node);
+        }
+        node=fd(node);
+      }
+      node=root;
+    }
+    print_queue(q);
+  }
+}
+
+
 int main()
 {
   tree *example1 = NULL;
-  // example1 = insert(example1, 45);
-  // example1 = insert(example1, 20);
-  // example1 = insert(example1, 10);
-  // example1 = insert(example1, 35);
-  // example1 = insert(example1, 65);
-  // example1 = insert(example1, 55);
-  // example1 = insert(example1, 50);
-  // example1 = insert(example1, 58);
-  // example1 = insert(example1, 56);
-  // example1 = insert(example1, 57);
-  // example1 = insert(example1, 60);
-  // example1 = insert(example1, 62);
-  // example1 = insert(example1, 85);
-  // example1 = insert(example1, 75);
-  // example1 = insert(example1, 95);
-  // example1 = insert(example1, 90);
-  // example1 = insert(example1, 88);
-  // example1 = insert(example1, 98);
-  example1 = insert(example1, 15);
-  example1 = insert(example1, 3);
-  example1 = insert(example1, 9);
-  example1 = insert(example1, 5);
-  example1 = insert(example1, 11);
+  example1 = insert(example1, 45);
+  example1 = insert(example1, 20);
+  example1 = insert(example1, 10);
+  example1 = insert(example1, 35);
+  example1 = insert(example1, 65);
+  example1 = insert(example1, 55);
+  example1 = insert(example1, 50);
+  example1 = insert(example1, 58);
+  example1 = insert(example1, 56);
+  example1 = insert(example1, 57);
+  example1 = insert(example1, 60);
+  example1 = insert(example1, 62);
+  example1 = insert(example1, 85);
+  example1 = insert(example1, 75);
+  example1 = insert(example1, 95);
+  example1 = insert(example1, 90);
+  example1 = insert(example1, 88);
+  example1 = insert(example1, 98);
+  // example1 = insert(example1, 15);
+  // example1 = insert(example1, 3);
+  // example1 = insert(example1, 9);
+  // example1 = insert(example1, 5);
+  // example1 = insert(example1, 11);
 
   printf("\nTesting functions with Example 1:\n");
 
   print_tree(example1, 0);
   // branche_trav_L(example1);
-  branche_trav_R(example1);
+  // branche_trav_R(example1);
   // leaf_trav(example1);
+  leaf_trav_L(example1);
 
   return 0;
 }
