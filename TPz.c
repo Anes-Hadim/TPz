@@ -240,6 +240,7 @@ void leaf_trav_R2(tree* root) {
 
 int main()
 {
+  tree* root=NULL;
   tree *example1 = NULL;
   example1 = insert(example1, 45);
   example1 = insert(example1, 20);
@@ -267,12 +268,14 @@ int main()
 
   printf("\nTesting functions with Example 1:\n");
 
-  print_tree(example1, 0);
+  // print_tree(example1,0);
   // branche_trav_L(example1);
   // branche_trav_R(example1);
   // leaf_trav_L(example1);
   // leaf_trav_R(example1);
-  leaf_trav_R2(example1);
+ // leaf_trav_R2(example1);
+  root=create_tree(root);
+  print_tree(root,0);
 
   return 0;
 }
