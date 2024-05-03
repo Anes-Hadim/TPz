@@ -4,6 +4,8 @@
 #include <Windows.h>
 #include"./abstract_machines.h"
 
+
+
 void iter_stack(stack* s,queue* q) {
   qc* head=(*s).top;
   while (head!=NULL) {
@@ -149,6 +151,7 @@ void leaf_trav_L(tree* root){
 }
 
 
+
 int main()
 {
   tree *example1 = NULL;
@@ -182,7 +185,8 @@ int main()
   // branche_trav_L(example1);
   // branche_trav_R(example1);
   // leaf_trav(example1);
-  leaf_trav_L(example1);
+  //leaf_trav_L(example1);
+  leaf_trav_Lv2(example1);
 
   return 0;
 }
