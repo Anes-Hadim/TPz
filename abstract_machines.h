@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <time.h>
 
 typedef struct tree {
   int val;
@@ -40,6 +41,7 @@ bool leaf(tree* node);
 tree* delete(tree* root, int val);
 bool search_recursive(tree* node, int val);
 void print_tree(tree* root, int space);
+tree* create_tree(tree* root);
 
 void allocate_qc(qc** p);
 tree* value_qc(qc* p);
@@ -119,6 +121,18 @@ tree* insert(tree* node,int val) {
     ass_fg(node,insert(fg(node),val));
   }
   return node;
+}
+
+
+tree* create_tree(tree* root){
+  int val;
+  srand(time(NULL));
+  for (int i = 0; i < 99; i++)
+  {
+    val=rand();
+    root=insert(root,val);
+  }
+  return root;
 }
 
 bool leaf(tree* node) {
