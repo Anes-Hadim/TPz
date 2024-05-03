@@ -133,7 +133,7 @@ void leaf_trav_L(tree* root){
         }
         pop(&s,&node);
         temp=visited(node);
-        if (!ignore && (leaf(node) && !visited(node)) || (!visited(node) && children_visited(node))) {
+        if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
           ass_visited(node,true);
           enqueue(&q,node);
         }
@@ -150,21 +150,38 @@ void leaf_trav_L(tree* root){
   }
 }
 
-void leaf_trav_Lv2(tree* node){
+void leaf_trav_R(tree* root){
+  stack s;
   queue q;
-  tree* node1=node;
-  while(visited(fg(node1))==false && visited(fd(node1))==false){
-  create_queue(&q);
-  enqueues(&q,node);
-  while(!empty_queue(q)){
-    dequeue(&q,&node);
-    enqueues(&q,fd(node));
-    enqueues(&q,fg(node));
+  tree* node=root;
+  bool temp=false,ignore=false;
+  if (node!=NULL) {
+    create_queue(&q);
+    create_stack(&s);
+    while (!visited(root)) {
+      while (!empty_stack(s) || node!=NULL) {
+        while (node!=NULL) {
+          push(&s,node);
+          node=fd(node);
+        }
+        pop(&s,&node);
+        temp=visited(node);
+        if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
+          ass_visited(node,true);
+          enqueue(&q,node);
+        }
+        if (temp!=visited(node)) {
+          ignore=true;
+        } else {
+          ignore=false;
+        }
+        node=fg(node);
+      }
+      node=root;
+    }
+    print_queue(q);
   }
-  print(q);
 }
-}
-
 
 
 int main()
@@ -199,9 +216,8 @@ int main()
   print_tree(example1, 0);
   // branche_trav_L(example1);
   // branche_trav_R(example1);
-  // leaf_trav(example1);
-  //leaf_trav_L(example1);
-  leaf_trav_L(example1);
+  // leaf_trav_L(example1);
+  leaf_trav_R(example1);
 
   return 0;
 }
