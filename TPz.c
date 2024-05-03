@@ -119,6 +119,7 @@ void leaf_trav_L(tree* root){
   stack s;
   queue q;
   tree* node=root;
+  bool temp=false,ignore=false;
   if (node!=NULL) {
     create_queue(&q);
     create_stack(&s);
@@ -129,9 +130,15 @@ void leaf_trav_L(tree* root){
           node=fg(node);
         }
         pop(&s,&node);
-        if ( (leaf(node) && !visited(node)) || (!visited(node) && children_visited(node))) {
+        temp=visited(node);
+        if (!ignore && (leaf(node) && !visited(node)) || (!visited(node) && children_visited(node))) {
           ass_visited(node,true);
           enqueue(&q,node);
+        }
+        if (temp!=visited(node)) {
+          ignore=true;
+        } else {
+          ignore=false;
         }
         node=fd(node);
       }
