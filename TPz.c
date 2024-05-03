@@ -150,6 +150,21 @@ void leaf_trav_L(tree* root){
   }
 }
 
+void leaf_trav_Lv2(tree* node){
+  queue q;
+  tree* node1=node;
+  while(visited(fg(node1))==false && visited(fd(node1))==false){
+  create_queue(&q);
+  enqueues(&q,node);
+  while(!empty_queue(q)){
+    dequeue(&q,&node);
+    enqueues(&q,fd(node));
+    enqueues(&q,fg(node));
+  }
+  print(q);
+}
+}
+
 
 
 int main()
@@ -186,7 +201,7 @@ int main()
   // branche_trav_R(example1);
   // leaf_trav(example1);
   //leaf_trav_L(example1);
-  leaf_trav_Lv2(example1);
+  leaf_trav_L(example1);
 
   return 0;
 }
