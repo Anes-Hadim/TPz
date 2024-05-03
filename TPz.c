@@ -65,45 +65,47 @@ void branche_trav_R(tree* node) {
   }
 }
 
-void leaf_trav(tree* node){
-  stack s;
-  queue q;
-  tree* temp=node;
-  if (node!=NULL) {
-    create_stack(&s);
-    create_queue(&q);
-    while(visited(fg(temp))==false && visited(fd(temp))==false){
-      node=temp;
-    while (!empty_stack(s) || node!=NULL) {
-      while (node!=NULL) {
-        push(&s,node);
-        if (visited(fg(node))==false)
-        {
-          node=fg(node);
-        }
-        else{
-          node=NULL;
-        }
-      }
-      pop(&s,&node);
-      if (leaf(node) && visited(node)!=true)
-      {
-        enqueue(&(q),node);
-        ass_visited(node,true);
-      }
-      if (visited(node)==false)
-      {
-        node=fd(node);
-      }
-      else if (fd(node)==NULL){
-        node=NULL;
-      }
-    }
-    create_stack(&s);
-  }
-  }
-  print_queue(q);
-}
+ // Abdellah's version
+
+// void leaf_trav(tree* node){
+//   stack s;
+//   queue q;
+//   tree* temp=node;
+//   if (node!=NULL) {
+//     create_stack(&s);
+//     create_queue(&q);
+//     while(visited(fg(temp))==false && visited(fd(temp))==false){
+//       node=temp;
+//     while (!empty_stack(s) || node!=NULL) {
+//       while (node!=NULL) {
+//         push(&s,node);
+//         if (visited(fg(node))==false)
+//         {
+//           node=fg(node);
+//         }
+//         else{
+//           node=NULL;
+//         }
+//       }
+//       pop(&s,&node);
+//       if (leaf(node) && visited(node)!=true)
+//       {
+//         enqueue(&(q),node);
+//         ass_visited(node,true);
+//       }
+//       if (visited(node)==false)
+//       {
+//         node=fd(node);
+//       }
+//       else if (fd(node)==NULL){
+//         node=NULL;
+//       }
+//     }
+//     create_stack(&s);
+//   }
+//   }
+//   print_queue(q);
+// }
 
 bool children_visited(tree* node) {
   if (leaf(node)) {
@@ -117,71 +119,123 @@ bool children_visited(tree* node) {
   }
 }
 
-void leaf_trav_L(tree* root){
-  stack s;
-  queue q;
-  tree* node=root;
-  bool temp=false,ignore=false;
+void leaf_trav_L_recursive(tree* node) {
   if (node!=NULL) {
-    create_queue(&q);
-    create_stack(&s);
-    while (!visited(root)) {
-      while (!empty_stack(s) || node!=NULL) {
-        while (node!=NULL) {
-          push(&s,node);
-          node=fg(node);
-        }
-        pop(&s,&node);
-        temp=visited(node);
-        if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
-          ass_visited(node,true);
-          enqueue(&q,node);
-        }
-        if (temp!=visited(node)) {
-          ignore=true;
-        } else {
-          ignore=false;
-        }
-        node=fd(node);
-      }
-      node=root;
+    bool ignore=false;
+    bool temp1 = fg(node)==NULL ?  true : visited(fg(node));
+    bool temp2 = fd(node)==NULL ?  true : visited(fd(node));
+    leaf_trav_L_recursive(fg(node));
+    leaf_trav_L_recursive(fd(node));
+    if ((fg(node)!=NULL && temp1!=visited(fg(node))) || (fd(node)!=NULL && temp2!=visited(fd(node)))) {
+      ignore=true;
+    } else {
+      ignore=false;
     }
-    print_queue(q);
+    if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
+      ass_visited(node,true);
+      printf("%2d |",value(node));
+    }
+  } 
+}
+
+void leaf_trav_L2(tree* root) {
+  while (!visited(root)) {
+    leaf_trav_L_recursive(root);
   }
 }
 
-void leaf_trav_R(tree* root){
-  stack s;
-  queue q;
-  tree* node=root;
-  bool temp=false,ignore=false;
+void leaf_trav_R_recursive(tree* node) {
   if (node!=NULL) {
-    create_queue(&q);
-    create_stack(&s);
-    while (!visited(root)) {
-      while (!empty_stack(s) || node!=NULL) {
-        while (node!=NULL) {
-          push(&s,node);
-          node=fd(node);
-        }
-        pop(&s,&node);
-        temp=visited(node);
-        if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
-          ass_visited(node,true);
-          enqueue(&q,node);
-        }
-        if (temp!=visited(node)) {
-          ignore=true;
-        } else {
-          ignore=false;
-        }
-        node=fg(node);
-      }
-      node=root;
+    bool ignore=false;
+    bool temp1 = fg(node)==NULL ?  true : visited(fg(node));
+    bool temp2 = fd(node)==NULL ?  true : visited(fd(node));
+    leaf_trav_R_recursive(fd(node));
+    leaf_trav_R_recursive(fg(node));
+    if ((fg(node)!=NULL && temp1!=visited(fg(node))) || (fd(node)!=NULL && temp2!=visited(fd(node)))) {
+      ignore=true;
+    } else {
+      ignore=false;
     }
-    print_queue(q);
+    if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
+      ass_visited(node,true);
+      printf("%2d |",value(node));
+    }
+  } 
+}
+
+void leaf_trav_R2(tree* root) {
+  while (!visited(root)) {
+    leaf_trav_R_recursive(root);
   }
 }
+
+//Anes previeus versions
+
+// void leaf_trav_L(tree* root){
+//   stack s;
+//   queue q;
+//   tree* node=root;
+//   bool temp=false,ignore=false;
+//   if (node!=NULL) {
+//     create_queue(&q);
+//     create_stack(&s);
+//     while (!visited(root)) {
+//       while (!empty_stack(s) || node!=NULL) {
+//         while (node!=NULL) {
+//           push(&s,node);
+//           node=fg(node);
+//         }
+//         pop(&s,&node);
+//         temp=visited(node);
+//         if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
+//           ass_visited(node,true);
+//           enqueue(&q,node);
+//         }
+//         if (temp!=visited(node)) {
+//           ignore=true;
+//         } else {
+//           ignore=false;
+//         }
+//         node=fd(node);
+//       }
+//       node=root;
+//     }
+//     print_queue(q);
+//   }
+// }
+
+// void leaf_trav_R(tree* root){
+//   stack s;
+//   queue q;
+//   tree* node=root;
+//   bool temp=false,ignore=false;
+//   if (node!=NULL) {
+//     create_queue(&q);
+//     create_stack(&s);
+//     while (!visited(root)) {
+//       while (!empty_stack(s) || node!=NULL) {
+//         while (node!=NULL) {
+//           push(&s,node);
+//           node=fd(node);
+//         }
+//         pop(&s,&node);
+//         temp=visited(node);
+//         if (!ignore && ((leaf(node) && !visited(node)) || (!visited(node) && children_visited(node)))) {
+//           ass_visited(node,true);
+//           enqueue(&q,node);
+//         }
+//         if (temp!=visited(node)) {
+//           ignore=true;
+//         } else {
+//           ignore=false;
+//         }
+//         node=fg(node);
+//       }
+//       node=root;
+//     }
+//     print_queue(q);
+//   }
+// }
 
 
 int main()
@@ -217,7 +271,8 @@ int main()
   // branche_trav_L(example1);
   // branche_trav_R(example1);
   // leaf_trav_L(example1);
-  leaf_trav_R(example1);
+  // leaf_trav_R(example1);
+  leaf_trav_R2(example1);
 
   return 0;
 }
