@@ -1,0 +1,3 @@
+find a verification function for branch
+find a verification function for leaf
+find a better dispay for the tree (print_tree)

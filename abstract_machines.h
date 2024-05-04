@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <time.h>
 
 typedef struct tree {
   int val;
@@ -26,6 +25,7 @@ typedef struct stack{
 
 // Function headers
 
+//tree abstract machine
 void create_node(tree** node);
 void ass_fg(tree* parent, tree* fg);
 void ass_fd(tree* parent, tree* fd);
@@ -35,33 +35,37 @@ tree* fg(tree* node);
 tree* fd(tree* node);
 int value(tree* node);
 bool visited(tree* node);
+void free_tree(tree* root);
 
+
+//BST basic opertations
 tree* insert(tree* node, int val);
 bool leaf(tree* node);
 tree* delete(tree* root, int val);
 bool search_recursive(tree* node, int val);
 void print_tree(tree* root, int space);
-tree* create_tree(tree* root);
 
+//list abstract machine
 void allocate_qc(qc** p);
 tree* value_qc(qc* p);
 qc* next_qc(qc* p);
 void ass_val_qc(qc* p, tree* v);
 void ass_adr_qc(qc* p, qc* q);
 
-
+//queue abstract machine
 void create_queue(queue* q);
 bool empty_queue(queue q);
 void enqueue(queue* q, tree* val);
 void dequeue(queue* q, tree** val);
+void print_queue(queue q);
 
-
+//stack abstract machine
 void print_stack(stack s);
 void create_stack(stack* s);
 bool empty_stack(stack s);
 void push(stack* s, tree* val);
 void pop(stack* s, tree** val);
-void print_queue(queue q);
+
 
 //tree 
 //----------------------------------------------------------------
@@ -102,6 +106,14 @@ bool visited(tree* node) {
   return node->visited;
 }
 
+void free_tree(tree* root) {
+  if (root !=NULL) {
+    free_tree(fg(root));
+    free_tree(fd(root));
+    free(root);
+  }
+}
+
 //--------------------------------------------------------
 //BST
 //--------------------------------------------------------
@@ -123,17 +135,6 @@ tree* insert(tree* node,int val) {
   return node;
 }
 
-
-tree* create_tree(tree* root){
-  int val;
-  srand(time(NULL));
-  for (int i = 0; i < 99; i++)
-  {
-    val=rand();
-    root=insert(root,val);
-  }
-  return root;
-}
 
 bool leaf(tree* node) {
   return fg(node)==NULL && fd(node)==NULL;
