@@ -10,7 +10,7 @@ int main()
   tree* root=NULL;
 
   root=create_tree(root);
-  print_tree2(root,0);
+  print_tree(root,0);
 
   branche_trav_L(root);
   reset_visited(root);
