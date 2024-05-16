@@ -8,6 +8,7 @@ void leaf_trav_L_recursive(tree* node);
 void leaf_trav_L(tree* root);
 void leaf_trav_R_recursive(tree* node);
 void leaf_trav_R(tree* root);
+void branch_ver(tree* root);
 
 void iter_stack(stack* s,queue* q) {
   qc* head=(*s).top;
@@ -129,4 +130,35 @@ void leaf_trav_R(tree* root) {
   while (!visited(root)) {
     leaf_trav_R_recursive(root);
   }
+}
+
+
+void branch_ver(tree* root){
+  stack s;
+  create_stack(&s);
+  queue q;
+  create_queue(&q);
+  tree* node=root;
+    while(!visited(root)){
+      node=root;
+      while(node!=NULL){
+        push(&s,node);
+        if ((fg(node)==NULL || visited(fg(node))==true) && fd(node)!=NULL)
+        {
+          node=fd(node);
+          push(&s,node);
+        }
+        node=fg(node);
+      }
+      while (!empty_stack(s))
+      {
+        pop(&s,&node);
+        if (leaf(node) || children_visited(node))
+        {
+            ass_visited(node,true);
+        }
+        enqueue(&q,node);
+      }
+    }
+    print_queue(q);
 }

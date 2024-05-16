@@ -16,17 +16,18 @@ int main()
   reset_visited(root);
   printf("\n\n\n\n\n\n\n");
 
-  branche_trav_R(root);
-  reset_visited(root);
-  printf("\n\n\n\n\n\n\n");
+  // branche_trav_R(root);
+  // reset_visited(root);
+  // printf("\n\n\n\n\n\n\n");
 
-  leaf_trav_L(root);
-  reset_visited(root);
-  printf("\n\n\n\n\n\n\n");
+  // leaf_trav_L(root);
+  // reset_visited(root);
+  // printf("\n\n\n\n\n\n\n");
 
-  leaf_trav_R(root);
+  // leaf_trav_R(root);
 
-  free_tree(root);
+  // free_tree(root);
+  branch_ver(root);
 
   return 0;
 }
