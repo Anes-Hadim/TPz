@@ -7,6 +7,7 @@
 
 int main()
 {
+  queue q;
   tree* root=NULL;
 
   root=create_tree(root);
@@ -27,7 +28,8 @@ int main()
   // leaf_trav_R(root);
 
   // free_tree(root);
-  branch_ver(root);
+  q=branch_verpre(root);
+  print_queue(q);
 
   return 0;
 }

@@ -22,3 +22,17 @@ void reset_visited(tree* node) {
     reset_visited(fd(node));
   }
 }
+
+queue branch_verpre(tree* root){
+  queue q;
+  create_queue(&q);
+  if (root!=NULL)
+  {
+      enqueue(&q,root);
+      //printf("| %d |",value(root));
+      branch_verpre(fg(root));
+      branch_verpre(fd(root));
+  }
+  return q;
+}
+
