@@ -35,8 +35,9 @@ void branche_trav_L(tree* node) {
         if (fg(node)==NULL && fd(node)!=NULL) {
           node=fd(node);
           push(&s,node);
+        } else {
+          node=fg(node);
         }
-        node=fg(node);
       }
       iter_stack(&s,&q);
       pop(&s,&node);
