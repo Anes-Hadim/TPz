@@ -7,11 +7,33 @@
 
 int main()
 {
-  queue q;
+ 
+  tree tab[100];
+
   tree* root=NULL;
 
-  root=create_tree(root);
-  print_tree(root,0);
+  //root=create_tree(root);
+  // print_tree(root,0);
+
+  root=insert(root,45);
+  root=insert(root,20);
+  root=insert(root,10);
+  root=insert(root,35);
+  root=insert(root,65);
+  root=insert(root,55);
+  root=insert(root,50);
+  root=insert(root,58);
+  root=insert(root,56);
+  root=insert(root,57);
+  root=insert(root,60);
+  root=insert(root,62);
+  root=insert(root,85);
+  root=insert(root,75);
+  root=insert(root,95);
+  root=insert(root,90);
+  root=insert(root,88);
+  root=insert(root,98);
+print_tree(root,0);
 
   branche_trav_L(root);
   reset_visited(root);
@@ -28,8 +50,18 @@ int main()
   // leaf_trav_R(root);
 
   // free_tree(root);
-  q=branch_verpre(root);
-  print_queue(q);
+  preorder(root);
+  printf("\n\n");
+  int ind=0;
+  branch_verpre(root,tab,&ind);
+  for (int i = 0; i < 17; i++)
+  {
+    printf("%d |", tab[i].val);
+  }
+
+  printf("\n\n\n\n\n\n");
+
+  branch_trav(tab,18);
 
   return 0;
 }

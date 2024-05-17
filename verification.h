@@ -23,16 +23,42 @@ void reset_visited(tree* node) {
   }
 }
 
-queue branch_verpre(tree* root){
-  queue q;
-  create_queue(&q);
+void branch_verpre(tree* root,tree tab[],int* index){
   if (root!=NULL)
   {
-      enqueue(&q,root);
+      tab[*index]=*root;
+      (*index)++;
       //printf("| %d |",value(root));
-      branch_verpre(fg(root));
-      branch_verpre(fd(root));
+      branch_verpre(fg(root),tab,index);
+      branch_verpre(fd(root),tab,index);
   }
-  return q;
+}
+
+
+void branch_trav(tree tab[],int size){
+  tree* node;
+  stack s;
+  create_stack(&s);
+  for (int i = 0; i < size; i++)
+  {
+    push(&s,(tab+i));
+    if (tab[i].fg==NULL && tab[i].fd==NULL)
+    {
+      while (!empty_stack(s))
+      {
+      pop(&s,&node);
+      printf("%d |",value(node));
+      }
+    }
+  }
+}
+
+void preorder(tree* root){     // <Root> <left> <Right>
+     if (root!=NULL)
+     {
+      printf("| %d |",value(root));
+      preorder(fg(root));
+      preorder(fd(root));
+     }
 }
 
