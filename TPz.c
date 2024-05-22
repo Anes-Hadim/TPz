@@ -33,7 +33,7 @@ int main()
 //   root=insert(root,90);
 //   root=insert(root,88);
 //   root=insert(root,98);
-// print_tree(root,0);
+// 
 
   root=insert(root,328);
   root=insert(root,287);
@@ -45,6 +45,7 @@ int main()
   root=insert(root,884);
   root=insert(root,969);
   root=insert(root,960);
+  print_tree(root,0);
 
 
   branche_trav_L(root);
