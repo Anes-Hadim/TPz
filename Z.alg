@@ -5,7 +5,8 @@
       }
        R UN ARB DE ( ENTIER , BOOLEEN ) ;
        Inserer , Is_search : BOOLEEN ;
-       Val , I , J , N , M : ENTIER ;
+       Val , I , J , N , M , Nombre , Choix : ENTIER ;
+       Att : CARACTERE ;
       { 
         -------------------------------------------- 
        }
@@ -101,6 +102,32 @@
        ECRIRE ( Comparer_listes ( Trav4 , Verif4 ) ) ;
        ECRIRE ( '' ) ;
        ECRIRE ( '' ) ;
+       ECRIRE ( '--------------------------------------------' ) ;
+       R := NIL ;
+       ECRIRE ( 'tester sur un arbre de votre choix' ) ;
+       ECRIRE ( 'donner le nombre des noeuds : ' ) ;
+       LIRE ( Nombre ) ;
+       POUR I := 1 , Nombre :
+           Inserer := FAUX ;
+           TANTQUE Inserer = FAUX
+               ECRIRE ( 'donner la valeur de noeud ' , I , ' : ' ) ;
+               LIRE ( Val ) ;
+               R := Insertion ( R , Val , Inserer ) ;
+              
+           FINTANTQUE ;
+          
+       FINPOUR ;
+       ECRIRE ( 'entrer 1 pour tester les traverser 1 et 2' ) ;
+       ECRIRE ( 'entrer 2 pour tester les traverser 3 et 4' ) ;
+       LIRE ( Choix ) ;
+       SI Choix = 1
+           APPEL Info1 ( R ) ;
+          
+       SINON
+           APPEL Info2 ( R ) ;
+          
+       FINSI ;
+       ECRIRE ( '-------------------------------------------------------' ) ;
        ECRIRE ( '' ) ;
        ECRIRE ( 'test sur les 10 arbres avec 100 noeuds : ' ) ;
        ECRIRE ( 'on vas tester les traverser du gauche a droite sur 5 arbres' ) ;
