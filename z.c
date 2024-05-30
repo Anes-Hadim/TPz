@@ -1414,6 +1414,14 @@ void hold_results()
     system("Clr");
 }
 
+void free_tree(Pointeur_ATib root) {
+  if (root !=NULL) {
+    free_tree(Fg_ATib(root));
+    free_tree(Fd_ATib(root));
+    free(root);
+  }
+}
+
 void print_tree(Pointeur_ATib root, int space,int val)
 {
   if (root == NULL)
@@ -1620,7 +1628,8 @@ void sub_menu_1(Pointeur_ATib R)
             hold_results();
             break;
         case 5:
-            printf("exite");
+            free_tree(R);
+            break;
         }
     } while (choice != 5);
 
@@ -1737,6 +1746,7 @@ void main_menu()
         switch (choice)
         {
         case 1: // arbre du TP
+            R=NULL;
             val=45;
             R=Insertion(& R,&val,&Inserer);
             val=20;
@@ -1776,6 +1786,7 @@ void main_menu()
             sub_menu_1(R);
             break;
         case 2: // arbre par votre choix
+            R=NULL;
             printf("entre le nombre de elements dans votre arbre : ");
             scanf("%d",&size);
             for(int i=0;i<size;i++){
