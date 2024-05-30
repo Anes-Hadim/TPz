@@ -1508,7 +1508,7 @@ void sub_menu_1(Pointeur_ATib R)
                     printf("4) Parcours feuille par feuille du droite vers la gauche%57c\033[0m#\n", 32);
                     break;
                 case 5:
-                    printf("5)  retourner vers le menu principale%76c\033[0m#\n", 32);
+                    printf("5) retourner vers le menu principale%77c\033[0m#\n", 32);
                     break;
 
                 }
