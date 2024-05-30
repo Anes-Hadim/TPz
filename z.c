@@ -1422,6 +1422,68 @@ void free_tree(Pointeur_ATib root) {
   }
 }
 
+void gotoxy(int x, int y) {
+    printf("\033[%d;%dH", y, x);
+}
+
+void print_arrows(Pointeur_ATib node,int x,int y,int ne9es) {
+  if (Fg_ATib(node)!=NULL) {
+    gotoxy(x-1,y+1);
+    printf("/");  
+    gotoxy(x-2,y+2);
+    printf("/");  
+    gotoxy(x-3,y+3);
+    printf("/");  
+    gotoxy(x-4,y+4);
+    printf("/");
+    if (x-4>x-ne9es) {
+      gotoxy(x-ne9es+1,y+4);
+      for (int i = x - ne9es + 1; i < x - 4; i++) {
+        printf("_");
+      }
+    }  
+  }
+  if (Fd_ATib(node)!=NULL) {
+    gotoxy(x+1,y+1);
+    printf("\\");
+    gotoxy(x+2,y+2);
+    printf("\\");
+    gotoxy(x+3,y+3);
+    printf("\\");
+    gotoxy(x+4,y+4);
+    printf("\\");
+    if (x+4<x+ne9es) {
+      gotoxy(x+4+1,y+4);
+      for (int i = x + 4 + 1; i < x + ne9es - 1; i++) {
+        printf("_");
+      }
+    } 
+  }
+}
+
+void print_vertical(Pointeur_ATib root,int x,int y,int ne9es,int val) {
+  if (root != NULL) {
+    gotoxy(x, y);
+    if (Struct1_Tib(Info_ATib(root))==val) {
+      S=Info_ATib(root);
+      Aff_struct2_Tib(S,1);
+      Aff_info_ATib(root,S);
+    }
+    
+    if (Struct2_Tib(Info_ATib(root))==1 && Struct1_Tib(Info_ATib(root))!=val) {
+      printf("\033[31m%d\n\033[0m",  Struct1_Tib(Info_ATib(root)));
+    } else if (Struct2_Tib(Info_ATib(root))==1 && Struct1_Tib(Info_ATib(root))==val) {
+      printf("\033[31m==>%d\n\033[0m",  Struct1_Tib(Info_ATib(root)));
+    } else {
+      printf("%d\n",  Struct1_Tib(Info_ATib(root)));
+    }
+    ne9es=ne9es/2+2;
+    print_arrows(root,x,y,ne9es);
+    print_vertical(Fg_ATib(root),x-ne9es,y+4,ne9es,val);
+    print_vertical(Fd_ATib(root),x+ne9es,y+4,ne9es,val);
+  }
+}
+
 void print_tree(Pointeur_ATib root, int space,int val)
 {
   if (root == NULL)
@@ -1455,7 +1517,8 @@ void print_tree(Pointeur_ATib root, int space,int val)
 
 void print_animated_tree(Pointeur_ATib root,Pointeur_Li T ){
   while(T!=NULL){
-    print_tree(root,0,Valeur_Li(T));
+    // print_tree(root,0,Valeur_Li(T));
+    print_vertical(root,50,5,50,Valeur_Li(T));
     Sleep(1000);
     T=Suivant_Li(T);
     system("cls");
