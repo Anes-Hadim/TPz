@@ -3,10 +3,9 @@
   { 
        --------------------------------------------- 
       }
-       R UN ARB DE ( ENTIER , BOOLEEN ) ;
+       R , R_copy : ARB DE ( ENTIER , BOOLEEN ) ;
        Inserer , Is_search : BOOLEEN ;
-       Val , I , J , N , M , Nombre , Choix : ENTIER ;
-       Att : CARACTERE ;
+       Val , I , J , N , M : ENTIER ;
       { 
         -------------------------------------------- 
        }
@@ -15,11 +14,11 @@
       { 
         -------------------------------------------- 
        }
-       Arbre_tp , Print_liste : ACTION ;
-       Info1 , Info2 , Info_impair , Info_pair : ACTION ;
+       Print_liste : ACTION ;
+       Affiche_tout , Affiche_resume : ACTION ;
        Feuille , Children_visited , Verifier_arb , Comparer_listes : FONCTION ( BOOLEEN ) ;
        Insertion : FONCTION ( ARB DE ( ENTIER , BOOLEEN ) ) ;
-       Inordre , List_inordre , Free_arb , Iter_stack , Clear_visited : ACTION ;
+       Inordre , List_inordre , Iter_stack , Clear_visited : ACTION ;
       { 
         -------------------------------------------- 
        }
@@ -35,165 +34,36 @@
        Verif_leaf_g , Verif_leaf_d : FONCTION ( LISTE DE ENTIER ) ;
       
    DEBUT
-       R := NIL ;
        ECRIRE ( '---------TP2--------' ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'Test sur l exemple du TP' ) ;
-       APPEL Arbre_tp ( R ) ;
-       Trav1 := Branche_gauche ( R ) ;
-       Verif1 := Verif_branche_g ( R ) ;
-       APPEL Clear_visited ( R ) ;
-       Trav3 := Branche_droite ( R ) ;
-       Verif3 := Verif_branche_d ( R ) ;
-       APPEL Clear_visited ( R ) ;
-       Trav2 := Leaf_gauche ( R ) ;
-       Verif2 := Verif_leaf_g ( R ) ;
-       APPEL Arbre_tp ( R ) ;
-       Trav4 := Leaf_droite ( R ) ;
-       Verif4 := Verif_leaf_d ( R ) ;
-       APPEL Free_arb ( R ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'traverse 1 : branche par branche du gauche a droite' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Trav1 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'verification 1 : branche par branche du gauche a droite' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Verif1 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'comparaison des deux listes : ' ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( Comparer_listes ( Trav1 , Verif1 ) ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'traverse 3 : branche par branche du droite a gauche' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Trav3 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'verification 3 : branche par branche du droite a gauche' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Verif3 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'comparaison des deux listes : ' ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( Comparer_listes ( Trav3 , Verif3 ) ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'traverse 2  : feuille par feuille du gauche a droite' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Trav2 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'verification 2 : feuille par feuille du gauche a droite' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Verif2 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'comparaison des deux listes : ' ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( Comparer_listes ( Trav2 , Verif2 ) ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'traverse 4 : feuille par feuille du droite a gauche' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Trav4 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'verification 4 : feuille par feuille du droite a gauche' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Print_liste ( Verif4 ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'comparaison des deux listes : ' ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( Comparer_listes ( Trav4 , Verif4 ) ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( '' ) ;
-       ECRIRE ( '--------------------------------------------' ) ;
-       R := NIL ;
-       ECRIRE ( 'tester sur un arbre de votre choix' ) ;
-       ECRIRE ( 'donner le nombre des noeuds : ' ) ;
-       LIRE ( Nombre ) ;
-       POUR I := 1 , Nombre :
-           Inserer := FAUX ;
-           TANTQUE Inserer = FAUX
-               ECRIRE ( 'donner la valeur de noeud ' , I , ' : ' ) ;
-               LIRE ( Val ) ;
-               R := Insertion ( R , Val , Inserer ) ;
-              
-           FINTANTQUE ;
-          
-       FINPOUR ;
-       ECRIRE ( 'entrer 1 pour tester les traverser 1 et 2' ) ;
-       ECRIRE ( 'entrer 2 pour tester les traverser 3 et 4' ) ;
-       LIRE ( Choix ) ;
-       SI Choix = 1
-           APPEL Info1 ( R ) ;
-          
-       SINON
-           APPEL Info2 ( R ) ;
-          
-       FINSI ;
        ECRIRE ( '-------------------------------------------------------' ) ;
-       ECRIRE ( '' ) ;
        ECRIRE ( 'test sur les 10 arbres avec 100 noeuds : ' ) ;
-       ECRIRE ( 'on vas tester les traverser du gauche a droite sur 5 arbres' ) ;
-       ECRIRE ( 'et du droite a gauche sur les autre 5 arbres' ) ;
-       ECRIRE ( 'on vas aficher en detaile seulement les arbres 1 et 2' ) ;
+       ECRIRE ( 'on vas aficher en detaile seulement l arbre 1' ) ;
        M := 10 ;
        N := 100 ;
        I := 1 ;
        POUR I := 1 , M :
            R := NIL ;
+           R_copy := NIL ;
            POUR J := 1 , N :
                Inserer := FAUX ;
                TANTQUE Inserer = FAUX :
                    Val := ALEANOMBRE ( 1000 ) ;
                    R := Insertion ( R , Val , Inserer ) ;
                   
-               FINTANTQUE
+               FINTANTQUE ;
+               R_copy := Insertion ( R_copy , Val , Inserer ) ;
+              
            FINPOUR ;
            ECRIRE ( '-----------------------------------------------------' ) ;
            ECRIRE ( '-----------------arbre' , I , '-----------------------------' ) ;
-           SI MOD ( I , 2 ) = 1 :
-               SI I = 1
-                   APPEL Info1 ( R ) ;
-                  
-               SINON
-                   APPEL Info_impair ( R ) ;
-                  
-               FINSI
-           SINON
-               SI I = 2
-                   APPEL Info2 ( R ) ;
-                  
-               SINON
-                   APPEL Info_pair ( R )
-               FINSI ;
+           SI I = 1 :
+               APPEL Affiche_tout ( R , R_copy ) ;
               
-           FINSI ;
-           APPEL Free_arb ( R ) ;
-          
+           SINON
+               APPEL Affiche_resume ( R , R_copy ) ;
+              
+           FINSI
        FINPOUR ;
-      
-   FIN
-  {--------------------------------------------------------------------}
-   ACTION Arbre_tp ( R )
-   SOIT
-       R : ARB DE ( ENTIER , BOOLEEN ) ;
-      
-   DEBUT
-       R := Insertion ( R , 45 , Inserer ) ;
-       R := Insertion ( R , 20 , Inserer ) ;
-       R := Insertion ( R , 10 , Inserer ) ;
-       R := Insertion ( R , 35 , Inserer ) ;
-       R := Insertion ( R , 65 , Inserer ) ;
-       R := Insertion ( R , 55 , Inserer ) ;
-       R := Insertion ( R , 50 , Inserer ) ;
-       R := Insertion ( R , 58 , Inserer ) ;
-       R := Insertion ( R , 56 , Inserer ) ;
-       R := Insertion ( R , 57 , Inserer ) ;
-       R := Insertion ( R , 60 , Inserer ) ;
-       R := Insertion ( R , 62 , Inserer ) ;
-       R := Insertion ( R , 85 , Inserer ) ;
-       R := Insertion ( R , 75 , Inserer ) ;
-       R := Insertion ( R , 95 , Inserer ) ;
-       R := Insertion ( R , 90 , Inserer ) ;
-       R := Insertion ( R , 88 , Inserer ) ;
-       R := Insertion ( R , 98 , Inserer ) ;
       
    FIN
   {--------------------------------------------------------------------}
@@ -269,19 +139,6 @@
            S := INFO ( Noed ) ;
            ECRIRE ( STRUCT ( S , 1 ) ) ;
            APPEL Inordre ( FD ( Noed ) ) ;
-          
-       FINSI
-   FIN
-  {--------------------------------------------------------------------}
-   ACTION Free_arb ( Noeud )
-   SOIT
-       Noeud : ARB DE ( ENTIER , BOOLEEN ) ;
-      
-   DEBUT
-       SI Noeud <> NIL
-           APPEL Free_arb ( FG ( Noeud ) ) ;
-           APPEL Free_arb ( FD ( Noeud ) ) ;
-           LIBERERNOEUD ( Noeud ) ;
           
        FINSI
    FIN
@@ -940,13 +797,13 @@
       
    FIN
   {----------------------------------------------------------------------------}
-   ACTION Info1 ( R )
+   ACTION Affiche_tout ( R , R_copy )
    SOIT
-       R : ARB DE ( ENTIER , BOOLEEN ) ;
+       R , R_copy : ARB DE ( ENTIER , BOOLEEN ) ;
       
    DEBUT
        ECRIRE ( '' ) ;
-       ECRIRE ( 'le parcour inordre du arbre 1 : ' ) ;
+       ECRIRE ( 'le parcour inordre : ' ) ;
        ECRIRE ( '' ) ;
        APPEL Inordre ( R ) ;
        ECRIRE ( 'est ce que l arbre est bien construit : ' ) ;
@@ -981,26 +838,11 @@
        ECRIRE ( '' ) ;
        ECRIRE ( Comparer_listes ( Trav2 , Verif2 ) ) ;
        ECRIRE ( '' ) ;
-      
-   FIN
-  {--------------------------------------------------------------------------------------}
-   ACTION Info2 ( R )
-   SOIT
-       R : ARB DE ( ENTIER , BOOLEEN ) ;
-      
-   DEBUT
-       ECRIRE ( '' ) ;
-       ECRIRE ( 'le parcour inordre du arbre 2 : ' ) ;
-       ECRIRE ( '' ) ;
-       APPEL Inordre ( R ) ;
-       ECRIRE ( 'est ce que l arbre est bien construit : ' ) ;
-       ECRIRE ( Verifier_arb ( R ) ) ;
-       ECRIRE ( '' ) ;
-       Trav3 := Branche_droite ( R ) ;
-       Verif3 := Verif_branche_d ( R ) ;
-       APPEL Clear_visited ( R ) ;
-       Trav4 := Leaf_droite ( R ) ;
-       Verif4 := Verif_leaf_d ( R ) ;
+       Trav3 := Branche_droite ( R_copy ) ;
+       Verif3 := Verif_branche_d ( R_copy ) ;
+       APPEL Clear_visited ( R_copy ) ;
+       Trav4 := Leaf_droite ( R_copy ) ;
+       Verif4 := Verif_leaf_d ( R_copy ) ;
        ECRIRE ( 'traverse 3 : branche par branche du droite a gauche' ) ;
        ECRIRE ( '' ) ;
        APPEL Print_liste ( Trav3 ) ;
@@ -1028,9 +870,9 @@
       
    FIN
   {------------------------------------------------------------------------------------}
-   ACTION Info_impair ( R )
+   ACTION Affiche_resume ( R , R_copy )
    SOIT
-       R : ARB DE ( ENTIER , BOOLEEN ) ;
+       R , R_copy : ARB DE ( ENTIER , BOOLEEN ) ;
       
    DEBUT
        ECRIRE ( 'est ce que l arbre est bien construit : ' ) ;
@@ -1053,29 +895,18 @@
        ECRIRE ( '' ) ;
        ECRIRE ( Comparer_listes ( Trav2 , Verif2 ) ) ;
        ECRIRE ( '' ) ;
-      
-   FIN
-  {-------------------------------------------------------------------------------------}
-   ACTION Info_pair ( R )
-   SOIT
-       R : ARB DE ( ENTIER , BOOLEEN ) ;
-      
-   DEBUT
-       ECRIRE ( 'est ce que l arbre est bien construit : ' ) ;
-       ECRIRE ( Verifier_arb ( R ) ) ;
-       ECRIRE ( '' ) ;
-       Trav3 := Branche_droite ( R ) ;
-       Verif3 := Verif_branche_d ( R ) ;
-       APPEL Clear_visited ( R ) ;
-       Trav4 := Leaf_droite ( R ) ;
-       Verif4 := Verif_leaf_d ( R ) ;
+       Trav3 := Branche_droite ( R_copy ) ;
+       Verif3 := Verif_branche_d ( R_copy ) ;
+       APPEL Clear_visited ( R_copy ) ;
+       Trav4 := Leaf_droite ( R_copy ) ;
+       Verif4 := Verif_leaf_d ( R_copy ) ;
        ECRIRE ( 'traverse 3 : branche par branche du droite a gauche' ) ;
        ECRIRE ( '' ) ;
        ECRIRE ( 'comparaison des deux listes : ' ) ;
        ECRIRE ( '' ) ;
        ECRIRE ( Comparer_listes ( Trav3 , Verif3 ) ) ;
        ECRIRE ( '' ) ;
-       ECRIRE ( 'traverse 4  : feuille par feuille du droite a gauche' ) ;
+       ECRIRE ( 'traverse 2 : feuille par feuille du droite a gauche' ) ;
        ECRIRE ( '' ) ;
        ECRIRE ( 'comparaison des deux listes : ' ) ;
        ECRIRE ( '' ) ;
