@@ -13,6 +13,8 @@
   #include <stdio.h>
   #include <stdlib.h>
   #include <Time.h>
+  #include<conio.h>
+  #include<windows.h>
 
   typedef int bool ;
 
@@ -236,6 +238,7 @@
   /** Variables du programme principal **/
   Pointeur_ATib R=NULL;
   Pointeur_ATib R_copy=NULL;
+  Typestr_Tib S;
   bool Inserer;
   bool Is_search;
   int Val;
@@ -433,16 +436,17 @@
     {
       /** Variables locales **/
       bool  Verifier_arb2 ;
+      Pointeur_ATib Temp=NULL;
       Pointeur_Li Head=NULL;
+      Pointeur_Li Tail=NULL;
       Pointeur_Li Next=NULL;
       bool Error;
-      typedef * Pointeur_nil ;   // Pointeur generique
-      Pointeur_nil _Px1;
 
       /** Corps du module **/
      Head  =  NULL ;
-     _Px1 =  NULL ;
-     List_inordre ( & *Noeud , & Head , &_Px1) ;
+     Tail  =  NULL ;
+     Temp  =  *Noeud ;
+     List_inordre ( & Temp , & Head , & Tail ) ;
      Error  =  False ;
      while( ( ( Head != NULL ) && ( Error == False ) ))  {
        Next  =  Suivant_Li ( Head ) ;
@@ -1070,25 +1074,26 @@
       /** Variables locales **/
       Pointeur_Li Branche_gauche2 =NULL;
       Pointeur_ATib Temp=NULL;
+      Pointeur_ATib Temp2=NULL;
       Pointeur_LATib T=NULL;
+      Pointeur_LATib T2=NULL;
       Pointeur_PATib P=NULL;
       Pointeur_Li Trav1=NULL;
       Pointeur_Li Tail=NULL;
       Pointeur_Li Maillon=NULL;
-      typedef * Pointeur_nil ;   // Pointeur generique
-      Pointeur_nil _Px1;
-      Pointeur_ATib _Px2=NULL;
 
       /** Corps du module **/
      T  =  NULL ;
      Trav1  =  NULL ;
-     _Px1 =  NULL ;
-     Liste_preordre_g ( & *N , & T , &_Px1) ;
+     T2  =  NULL ;
+     Liste_preordre_g ( & *N , & T , & T2 ) ;
      while( T != NULL) {
-       _Px2 =  Valeur_LATib ( T ) ;
-       while( ! Feuille ( &_Px2)) {
+       Temp2  =  Valeur_LATib ( T ) ;
+       while( ! Feuille ( & Temp2 )) {
          Empiler_PATib (& P , Valeur_LATib ( T ) ) ;
          T  =  Suivant_LATib ( T ) ;
+         Temp2  =  Valeur_LATib ( T ) ;
+
         
        } ;
        Empiler_PATib (& P , Valeur_LATib ( T ) ) ;
@@ -1152,25 +1157,25 @@
       /** Variables locales **/
       Pointeur_Li Branche_droite2 =NULL;
       Pointeur_ATib Temp=NULL;
+      Pointeur_ATib Temp2=NULL;
       Pointeur_LATib T=NULL;
+      Pointeur_LATib T2=NULL;
       Pointeur_PATib P=NULL;
       Pointeur_Li Trav1=NULL;
       Pointeur_Li Tail=NULL;
       Pointeur_Li Maillon=NULL;
-      typedef * Pointeur_nil ;   // Pointeur generique
-      Pointeur_nil _Px1;
-      Pointeur_ATib _Px2=NULL;
 
       /** Corps du module **/
      T  =  NULL ;
      Trav1  =  NULL ;
-     _Px1 =  NULL ;
-     Liste_preordre_d ( & *N , & T , &_Px1) ;
+     T2  =  NULL ;
+     Liste_preordre_d ( & *N , & T , & T2 ) ;
      while( T != NULL) {
-       _Px2 =  Valeur_LATib ( T ) ;
-       while( ! Feuille ( &_Px2)) {
+       Temp2  =  Valeur_LATib ( T ) ;
+       while( ! Feuille ( & Temp2 )) {
          Empiler_PATib (& P , Valeur_LATib ( T ) ) ;
          T  =  Suivant_LATib ( T ) ;
+         Temp2  =  Valeur_LATib ( T ) ;
         
        } ;
        Empiler_PATib (& P , Valeur_LATib ( T ) ) ;
@@ -1201,12 +1206,15 @@
   /*----------------------------------------------------------------------------*/
   void Affiche_tout (Pointeur_ATib *R , Pointeur_ATib *R_copy)
     {
+      /** Variables locales **/
+      Pointeur_ATib Temp=NULL;
 
       /** Corps du module **/
      printf ( " %s", "" ) ;
      printf ( " %s", "le parcour inordre : " ) ;
      printf ( " %s", "" ) ;
-     Inordre ( & *R ) ;
+     Temp  =  *R ;
+     Inordre ( & Temp ) ;
      printf ( " %s", "est ce que l arbre est bien construit : " ) ;
      printf ( " %d", Verifier_arb(&*R) ) ;
      printf ( " %s", "" ) ;
@@ -1315,44 +1323,484 @@
     
     }
 
-  int main(int argc, char *argv[])
+void home_page()
+{ // displays ESI logo
+
+    system("cls"); // clear the terminal
+    printf("\t\t\t\t\033[96m           Democratic Republic Of Algeria           \033[0m\n");
+    printf("\t\t\t\t\033[96mMinistry Of Higher Education And Scientific Research\033[0m\n");
+    printf("\t\t\t      \033[96m _______________________________________________________\n");
+    printf("\t\t\t      \033[96m|        \033[92m_______\033[0m    \033[91m _______\033[0m    \033[97m _\033[0m                      \033[96m|\n");
+    printf("\t\t\t      \033[96m|       \033[92m|  _____|\033[0m   \033[91m|  _____|\033[0m   \033[97m| |\033[0m  \033[92m%ccole nationale\033[0m    \033[96m|\n", 130);
+    printf("\t\t\t      \033[96m|       \033[92m| |_____\033[0m    \033[91m| |_____\033[0m    \033[97m| |\033[0m                     \033[96m|\n");
+    printf("\t\t\t      \033[96m|       \033[92m|  _____|\033[0m   \033[91m|_____  |\033[0m   \033[97m| |\033[0m  \033[91msup%crieure\033[0m         \033[96m|\n", 130);
+    printf("\t\t\t      \033[96m|       \033[92m| |_____\033[0m    \033[91m _____| |\033[0m   \033[97m| |\033[0m                     \033[96m|\n");
+    printf("\t\t\t      \033[96m|       \033[92m|_______|\033[0m   \033[91m|_______|\033[0m   \033[97m|_|\033[0m  \033[97md'informatique\033[0m     \033[96m|\n");
+    printf("\t\t\t      \033[96m|_______________________________________________________|\033[0m\n\n");
+
+    printf("\t\t\t\t\t\033[96m            1CP - 2023/2024 \n", 138, 130, 130);
+    printf("\t\t\t\033[96m ___________________________________________________________________\n");
+    printf("\t\t\t\033[96m|                                                                   |\n");
+    printf("\t\t\t\033[96m|           REALISED BY :  \033[97m     Hadim Anes Abdelhak\033[96m                 |\n");
+    printf("\t\t\t\033[96m|                                        &                          |\n");
+    printf("\t\t\t\033[96m|                           \033[97m      Zeghmar Abdellah\033[96m                  |\n");
+    printf("\t\t\t\033[96m|                                                                   |\n");
+    printf("\t\t\t\033[96m|                                                                   |\n");
+    printf("\t\t\t\033[96m|           SECTION :  \033[97mA\033[96m          GROUPE: \033[97m03\033[96m                        |\n");
+    printf("\t\t\t\033[96m|                                                                   |\n");
+    printf("\t\t\t\033[96m|           TP2 :  \033[97mmultiple methodes de parcours des arbres\033[96m             |\n");
+    printf("\t\t\t\033[96m|                                                                   |\n");
+    printf("\t\t\t\033[96m|___________________________________________________________________|\n\n\n");
+
+    printf("\t\t\t                              \033[91mPlease                                \n");
+    printf("\t\t\t                   Enter Any Button To Continue...\033[0m               ");
+    getch();
+
+    system("cls");
+}
+
+//-----------------------------------------------//-----------------------------------------------//
+
+void loading_page()
+{ // displays a simple loading animation
+
+    // just displaying a diffrent frame after each 300ms
+    // and clear the terminal after each frame
+
+    system("cls");
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
+    printf("\t\t\t\t\t\t|||                                                 5%%  ");
+    Sleep(300);
+    system("cls");
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t|||||                                               20%%  ");
+    Sleep(300);
+    system("cls");
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t||||||||||||||||                                    30%%  ");
+    Sleep(300);
+    system("cls");
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t|||||||||||||||||||||||||                           45%%  ");
+    Sleep(300);
+    system("cls");
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t|||||||||||||||||||||||||||||||                     60%%  ");
+    Sleep(300);
+    system("cls");
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t||||||||||||||||||||||||||||||||||||||||            80%%  ");
+    Sleep(300);
+    system("cls");
+
+    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    printf("\t\t\t\t\t\t||||||||||||||||||||||||||||||||||||||||||||||||||  100%% ");
+    system("cls");
+}
+
+//-----------------------------------------------//-----------------------------------------------//
+
+void hold_results()
+{ // to let the user see the results before clearing the terminal
+    printf("\npress Enter to continue");
+    getch();
+    system("Clr");
+}
+
+void print_tree(Pointeur_ATib root, int space,int val)
+{
+  if (root == NULL)
+  {
+    return;
+  }
+
+  space += 10;
+  print_tree(Fd_ATib(root), space,val);
+
+  printf("\n");
+  for (int i = 10; i < space; i++)
+  {
+    printf(" ");
+  }
+  if (Struct1_Tib(Info_ATib(root))==val) {
+    S=Info_ATib(root);
+    Aff_struct2_Tib(S,1);
+    Aff_info_ATib(root,S);
+  }
+  
+  if (Struct2_Tib(Info_ATib(root))==1 && Struct1_Tib(Info_ATib(root))!=val) {
+    printf("\033[31m%d\n\033[0m",  Struct1_Tib(Info_ATib(root)));
+  } else if (Struct2_Tib(Info_ATib(root))==1 && Struct1_Tib(Info_ATib(root))==val) {
+    printf("\033[31m==>%d\n\033[0m",  Struct1_Tib(Info_ATib(root)));
+  } else {
+    printf("%d\n",  Struct1_Tib(Info_ATib(root)));
+  }
+  print_tree(Fg_ATib(root), space,val);
+}
+
+void print_animated_tree(Pointeur_ATib root,Pointeur_Li T ){
+  while(T!=NULL){
+    print_tree(root,0,Valeur_Li(T));
+    Sleep(1000);
+    T=Suivant_Li(T);
+    system("cls");
+  }
+}
+
+// sub-menus logic same as the main-menu to get the arrow animation
+
+void sub_menu_1(Pointeur_ATib R)
+{
+
+    int choice = 1;
+    int max_choice = 5;
+    char c;
+
+    int array_size; 
+    int size;       
+
+    do
     {
-     srand(time(NULL));
-     printf ( " %s", "---------TP2--------" ) ;
-     printf ( " %s", "-------------------------------------------------------" ) ;
-     printf ( " %s", "test sur les 10 arbres avec 100 noeuds : " ) ;
-     printf ( " %s", "on vas aficher en detaile seulement l arbre 1" ) ;
-     M  =  10 ;
-     N  =  100 ;
-     I  =  1 ;
-     for( I  =  1 ;I <=  M ; ++I) {
-       R  =  NULL ;
-       R_copy  =  NULL ;
-       for( J  =  1 ;J <=  N ; ++J) {
-         Inserer  =  False ;
-         while( Inserer == False)  {
-           Val  =  Aleanombre(1000 ) ;
-           R  =  Insertion ( & R , & Val , & Inserer ) ;
-          
-         } ;
-         R_copy  =  Insertion ( & R_copy , & Val , & Inserer ) ;
-        
-       } ;
-       printf ( " %s", "-----------------------------------------------------" ) ;
-       printf ( " %s", "-----------------arbre" );
-       printf ( " %d", I );
-       printf ( " %s", "-----------------------------" ) ;
-       if( I == 1)   {
-         Affiche_tout ( & R , & R_copy ) ;
-         }
-       else
-         {
-         Affiche_resume ( & R , & R_copy ) ;
-        
-       }
-     } ;
-    
-   
-      system("PAUSE");
-      return 0;
-    }
+
+        do
+        {
+
+            system("cls");
+
+            printf("########################################################################################################################\n");
+            printf("#%118c#\n", 32);
+            printf("#%30cQ2) Search primes using the two data structures%41c\033[0m#\n", 32, 32);
+            printf("#%118c#\n", 32);
+            printf("########################################################################################################################\n");
+            printf("#%118c#\n", 32);
+            printf("#%47cchoose an option:%54c#\n", 32, 32);
+            printf("#%118c#\n", 32);
+            int i;
+            for (i = 1; i <= max_choice; i++)
+            {
+                if (i == choice)
+                {
+                    printf("#\033[34m --> ");
+                }
+                else
+                {
+                    printf("#     ");
+                }
+                switch (i)
+                {
+                case 1:
+                    printf("1) Parcours branche par branche du gauche vers la droite%89c\033[0m#\n", 32);
+                    break;
+                case 2:
+                    printf("2) Parcours feuille par feuille du gauche vers la droite%74c\033[0m#\n", 32);
+                    break;
+                case 3:
+                    printf("3) Parcours branche par branche du droite vers la gauche%91c\033[0m#\n", 32);
+                    break;
+                case 4:
+                    printf("4)  Parcours feuille par feuille du droite vers la gauche%91c\033[0m#\n", 32);
+                    break;
+                case 5:
+                    printf("5)  retourner vers le menu principale%91c\033[0m#\n", 32);
+                    break;
+
+                }
+            }
+
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("########################################################################################################################\n");
+            printf("#%118c#\n", 32);
+            printf("#%36c\033[31mHow to navigate throught the menu\033[0m%49c#\n", 32, 32);
+            printf("#%26c\033[31mUse the Up and Down arrows or the numbers from 1 to %d\033[0m%39c#\n", 32, max_choice, 32);
+            printf("#%26c\033[31mPress enter to choose the option after selecting it\033[0m%41c#\n", 32, 32);
+            printf("#%118c#\n", 32);
+            printf("########################################################################################################################\n");
+
+        Read1:
+            c = getch();
+
+            switch (c)
+            {
+            case 72:
+                if (choice > 1)
+                {
+                    choice--;
+                }
+                else if (choice == 1)
+                {
+                    choice = max_choice;
+                }
+                break;
+            case 80:
+                if (choice < max_choice)
+                {
+                    choice++;
+                }
+                else if (choice == max_choice)
+                {
+                    choice = 1;
+                }
+                break;
+            case 49:
+                choice = 1;
+                break;
+            case 50:
+                choice = 2;
+                break;
+            case 51:
+                choice = 3;
+                break;
+            case 52:
+                choice=4;
+                break;
+            case 53:
+                choice = 5;
+                break;
+            case 13:
+                c = 13;
+                break;
+            default:
+                goto Read1;
+                break;
+            }
+        } while (c != 13);
+
+        system("cls");
+
+        switch (choice)
+        {
+        case 1:
+            Trav1 = Branche_gauche(&R);
+            print_animated_tree(R,Trav1);
+            Clear_visited(&R);
+            printf("\n");
+            Print_liste(&Trav1);
+            hold_results();
+            break;
+        case 2: 
+            Trav2 = Leaf_gauche(&R);
+            Clear_visited(&R);
+            print_animated_tree(R,Trav2);
+            Clear_visited(&R);
+            printf("\n");
+            Print_liste(&Trav2);
+            hold_results();
+            break;
+        case 3:
+            Trav3 = Branche_droite(&R);
+            print_animated_tree(R,Trav3);
+            Clear_visited(&R);
+            printf("\n");
+            Print_liste(&Trav3);
+            hold_results();
+            break;
+        case 4: 
+            Trav4 = Leaf_droite(&R);
+            Clear_visited(&R);
+            print_animated_tree(R,Trav4);
+            Clear_visited(&R);
+            printf("\n");
+            Print_liste(&Trav4);
+            hold_results();
+            break;
+        case 5:
+            printf("exite");
+        }
+    } while (choice != 5);
+
+}
+
+void main_menu()
+{ // the menu where the user manipulates the differente questions in the TP
+    int val;
+    int choice = 1; // the option choosed (set default to one)
+    int max_choice = 2; // the total number of options
+    char c;             // the keyboard key pressed by the user
+                        // loop until the user press ESC
+    do
+    {
+        // loop until the user press Enter
+        do
+        {
+            // display the menu each time the user updates his choice
+            system("cls");
+
+            printf("########################################################################################################################\n");
+            printf("#%118c#\n", 32);
+            printf("#%52cMAIN MENU%57c#\n", 32, 32);
+            printf("#%118c#\n", 32);
+            printf("########################################################################################################################\n");
+            printf("#%118c#\n", 32);
+            printf("#%49cChoose an option:%52c#\n", 32, 32);
+            printf("#%118c#\n", 32);
+            // the arrow will be before the choosed option
+            int i;
+            for (i = 1; i <= max_choice; i++)
+            {
+                if (i == choice)
+                {
+                        printf("#\033[34m --> ");
+                }
+                else
+                {
+                    printf("\033[0m#     ");
+                }
+                switch (i)
+                {
+
+                case 1:
+                    printf("1) Tester les parcours sur L'arbre du TP%67c\033[0m#\n", 32);
+                    break;
+                case 2:
+                    printf("2) Tester les parcours par une arbre de votre choix%66c\033[0m#\n", 32);
+                    break;
+                }
+            }
+
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("#%118c#\n", 32);
+            printf("########################################################################################################################\n");
+            printf("#%118c#\n", 32);
+            printf("#%36c\033[31mHow to navigate throught the menu\033[0m%49c#\n", 32, 32);
+            printf("#%26c\033[31mUse the Up and Down arrows or the numbers from 1 to %d\033[0m%39c#\n", 32, max_choice, 32);
+            printf("#%26c\033[31mPress enter to choose the option after selecting it\033[0m%41c#\n", 32, 32);
+            printf("#%36c\033[31mTo quite the program press 'Esc'\033[0m%50c#\n", 32, 32);
+            printf("#%118c#\n", 32);
+            printf("########################################################################################################################\n");
+
+            // get the keyboard key pressed by the user
+        Read:
+            c = getch();
+
+            // change the arrow position or quite the program based on the c value (the key pressed)
+            switch (c)
+            {
+            case 72: // Arrow Up
+                if (choice > 1)
+                {
+                    choice--; // go up
+                }
+                else if (choice == 1)
+                {
+                    choice = max_choice; // or go to the last option (circularly)
+                }
+                break;
+            case 80: // Arrow Down
+                if (choice < max_choice)
+                {
+                    choice++; // go down
+                }
+                else if (choice == max_choice)
+                {
+                    choice = 1; // or go to the first option (circularly)
+                }
+                break;
+            case 49: // for the number '1'
+                choice = 1;
+                break;
+            case 50: // '2'
+                choice = 2;
+                break;
+            case 13: // confirm the choice with Enter
+                c = 13;
+                break;
+            case 27: // quite the program after pressing ESC
+                choice = max_choice+1;
+                c = 13;
+                break;
+            default:
+                goto Read; // Ignorer les autres touches et relire le choice
+                break;
+            }
+        } while (c != 13); // repeat this loop until the key pressed is ESC
+        // execute the user's choice
+        system("Cls");                              
+        int size;             
+
+        switch (choice)
+        {
+        case 1: // arbre du TP
+            val=45;
+            R=Insertion(& R,&val,&Inserer);
+            val=20;
+            R=Insertion(& R,&val,&Inserer);
+            val=10;
+            R=Insertion(& R,&val,&Inserer);
+            val=35;
+            R=Insertion(& R,&val,&Inserer);
+            val=65;
+            R=Insertion(& R,&val,&Inserer);
+            val=55;
+            R=Insertion(& R,&val,&Inserer);
+            val=50;
+            R=Insertion(& R,&val,&Inserer);
+            val=58;
+            R=Insertion(& R,&val,&Inserer);
+            val=56;
+            R=Insertion(& R,&val,&Inserer);
+            val=57;
+            R=Insertion(& R,&val,&Inserer);
+            val=60;
+            R=Insertion(& R,&val,&Inserer);
+            val=62;
+            R=Insertion(& R,&val,&Inserer);
+            val=85;
+            R=Insertion(& R,&val,&Inserer);
+            val=75;
+            R=Insertion(& R,&val,&Inserer);
+            val=95;
+            R=Insertion(& R,&val,&Inserer);
+            val=90;
+            R=Insertion(& R,&val,&Inserer);
+            val=88;
+            R=Insertion(& R,&val,&Inserer);
+            val=98;
+            R=Insertion(& R,&val,&Inserer);
+            sub_menu_1(R);
+            break;
+        case 2: // arbre par votre choix
+            printf("entre le nombre de elements dans votre arbre : ");
+            scanf("%d",&size);
+            for(int i=0;i<size;i++){
+              printf("entre une valeur : ") ;
+              scanf("%d",&val);
+              R=Insertion(&R,&val,&Inserer);
+            }
+            sub_menu_1(R);
+            break;
+        }
+    } while (choice != max_choice+1);
+
+    // End of Program
+    system("cls");
+    printf("\n\n        thank you for using our program\n\n");
+    printf("        Press enter to quite the program . . .");
+    getch();
+}
+
+
+
+int main()
+  {
+    home_page();
+    loading_page();
+    main_menu();
+    return 0;
+  }

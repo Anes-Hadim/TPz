@@ -40,7 +40,6 @@
        ECRIRE ( 'on vas aficher en detaile seulement l arbre 1' ) ;
        M := 10 ;
        N := 100 ;
-       I := 1 ;
        POUR I := 1 , M :
            R := NIL ;
            R_copy := NIL ;
@@ -170,13 +169,15 @@
   {--------------------------------------------------------------------}
    FONCTION Verifier_arb ( Noeud ) : BOOLEEN
    SOIT
-       Noeud : ARB DE ( ENTIER , BOOLEEN ) ;
-       Head , Next : LISTE DE ENTIER ;
+       Noeud , Temp : ARB DE ( ENTIER , BOOLEEN ) ;
+       Head , Tail , Next : LISTE DE ENTIER ;
        Error : BOOLEEN ;
       
    DEBUT
        Head := NIL ;
-       APPEL List_inordre ( Noeud , Head , NIL ) ;
+       Tail := NIL ;
+       Temp := Noeud ;
+       APPEL List_inordre ( Temp , Head , Tail ) ;
        Error := FAUX ;
        TANTQUE ( ( Head <> NIL ) ET ( Error = FAUX ) ) :
            Next := SUIVANT ( Head ) ;
@@ -692,19 +693,22 @@
   {-----------------------------------------------------------------------}
    FONCTION Branche_gauche ( N ) : LISTE DE ENTIER
    SOIT
-       N , Temp : ARB DE ( ENTIER , BOOLEEN ) ;
-       T : LISTE DE ARB DE ( ENTIER , BOOLEEN ) ;
+       N , Temp , Temp2 : ARB DE ( ENTIER , BOOLEEN ) ;
+       T , T2 : LISTE DE ARB DE ( ENTIER , BOOLEEN ) ;
        P : PILE DE ARB DE ( ENTIER , BOOLEEN ) ;
        Trav1 , Tail , Maillon : LISTE DE ENTIER ;
       
    DEBUT
        T := NIL ;
        Trav1 := NIL ;
-       APPEL Liste_preordre_g ( N , T , NIL ) ;
+       T2 := NIL ;
+       APPEL Liste_preordre_g ( N , T , T2 ) ;
        TANTQUE T <> NIL
-           TANTQUE NON Feuille ( VALEUR ( T ) )
+           Temp2 := VALEUR ( T ) ;
+           TANTQUE NON Feuille ( Temp2 )
                EMPILER ( P , VALEUR ( T ) ) ;
                T := SUIVANT ( T ) ;
+               Temp2 := VALEUR ( T ) ;
               
            FINTANTQUE ;
            EMPILER ( P , VALEUR ( T ) ) ;
@@ -758,19 +762,22 @@
   {-----------------------------------------------------------------------}
    FONCTION Branche_droite ( N ) : LISTE DE ENTIER
    SOIT
-       N , Temp : ARB DE ( ENTIER , BOOLEEN ) ;
-       T : LISTE DE ARB DE ( ENTIER , BOOLEEN ) ;
+       N , Temp , Temp2 : ARB DE ( ENTIER , BOOLEEN ) ;
+       T , T2 : LISTE DE ARB DE ( ENTIER , BOOLEEN ) ;
        P : PILE DE ARB DE ( ENTIER , BOOLEEN ) ;
        Trav1 , Tail , Maillon : LISTE DE ENTIER ;
       
    DEBUT
        T := NIL ;
        Trav1 := NIL ;
-       APPEL Liste_preordre_d ( N , T , NIL ) ;
+       T2 := NIL ;
+       APPEL Liste_preordre_d ( N , T , T2 ) ;
        TANTQUE T <> NIL
-           TANTQUE NON Feuille ( VALEUR ( T ) )
+           Temp2 := VALEUR ( T ) ;
+           TANTQUE NON Feuille ( Temp2 )
                EMPILER ( P , VALEUR ( T ) ) ;
                T := SUIVANT ( T ) ;
+               Temp2 := VALEUR ( T ) ;
               
            FINTANTQUE ;
            EMPILER ( P , VALEUR ( T ) ) ;
@@ -799,13 +806,14 @@
   {----------------------------------------------------------------------------}
    ACTION Affiche_tout ( R , R_copy )
    SOIT
-       R , R_copy : ARB DE ( ENTIER , BOOLEEN ) ;
+       R , R_copy , Temp : ARB DE ( ENTIER , BOOLEEN ) ;
       
    DEBUT
        ECRIRE ( '' ) ;
        ECRIRE ( 'le parcour inordre : ' ) ;
        ECRIRE ( '' ) ;
-       APPEL Inordre ( R ) ;
+       Temp := R ;
+       APPEL Inordre ( Temp ) ;
        ECRIRE ( 'est ce que l arbre est bien construit : ' ) ;
        ECRIRE ( Verifier_arb ( R ) ) ;
        ECRIRE ( '' ) ;
