@@ -1348,7 +1348,7 @@ void home_page()
     printf("\t\t\t\033[96m|                                                                   |\n");
     printf("\t\t\t\033[96m|           SECTION :  \033[97mA\033[96m          GROUPE: \033[97m03\033[96m                        |\n");
     printf("\t\t\t\033[96m|                                                                   |\n");
-    printf("\t\t\t\033[96m|           TP2 :  \033[97mmultiple methodes de parcours des arbres\033[96m             |\n");
+    printf("\t\t\t\033[96m|           TP2 :  \033[97mmultiple methodes de parcours des arbres\033[96m         |\n");
     printf("\t\t\t\033[96m|                                                                   |\n");
     printf("\t\t\t\033[96m|___________________________________________________________________|\n\n\n");
 
@@ -1476,7 +1476,7 @@ void sub_menu_1(Pointeur_ATib R)
 
             printf("########################################################################################################################\n");
             printf("#%118c#\n", 32);
-            printf("#%30cQ2) Search primes using the two data structures%41c\033[0m#\n", 32, 32);
+            printf("#%30cLes differents methode de parcoure %53c\033[0m#\n", 32, 32);
             printf("#%118c#\n", 32);
             printf("########################################################################################################################\n");
             printf("#%118c#\n", 32);
@@ -1496,19 +1496,19 @@ void sub_menu_1(Pointeur_ATib R)
                 switch (i)
                 {
                 case 1:
-                    printf("1) Parcours branche par branche du gauche vers la droite%89c\033[0m#\n", 32);
+                    printf("1) Parcours branche par branche du gauche vers la droite%57c\033[0m#\n", 32);
                     break;
                 case 2:
-                    printf("2) Parcours feuille par feuille du gauche vers la droite%74c\033[0m#\n", 32);
+                    printf("2) Parcours feuille par feuille du gauche vers la droite%57c\033[0m#\n", 32);
                     break;
                 case 3:
-                    printf("3) Parcours branche par branche du droite vers la gauche%91c\033[0m#\n", 32);
+                    printf("3) Parcours branche par branche du droite vers la gauche%57c\033[0m#\n", 32);
                     break;
                 case 4:
-                    printf("4)  Parcours feuille par feuille du droite vers la gauche%91c\033[0m#\n", 32);
+                    printf("4) Parcours feuille par feuille du droite vers la gauche%57c\033[0m#\n", 32);
                     break;
                 case 5:
-                    printf("5)  retourner vers le menu principale%91c\033[0m#\n", 32);
+                    printf("5)  retourner vers le menu principale%76c\033[0m#\n", 32);
                     break;
 
                 }
@@ -1665,10 +1665,10 @@ void main_menu()
                 {
 
                 case 1:
-                    printf("1) Tester les parcours sur L'arbre du TP%67c\033[0m#\n", 32);
+                    printf("1) Tester les parcours sur L'arbre du TP%73c\033[0m#\n", 32);
                     break;
                 case 2:
-                    printf("2) Tester les parcours par une arbre de votre choix%66c\033[0m#\n", 32);
+                    printf("2) Tester les parcours par une arbre de votre choix%62c\033[0m#\n", 32);
                     break;
                 }
             }
