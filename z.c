@@ -1210,117 +1210,108 @@
       Pointeur_ATib Temp=NULL;
 
       /** Corps du module **/
-     printf ( " %s", "" ) ;
-     printf ( " %s", "le parcour inordre : " ) ;
-     printf ( " %s", "" ) ;
+     printf ("\n") ;
+     printf ( " %s", "le parcour inordre : \n\n" ) ;
      Temp  =  *R ;
      Inordre ( & Temp ) ;
+     printf ("\n") ;
+     printf ("\n") ;
      printf ( " %s", "est ce que l arbre est bien construit : " ) ;
-     printf ( " %d", Verifier_arb(&*R) ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n", Verifier_arb(&*R)==1 ? "oui" : "non" ) ;
+     printf ("\n") ;
+     printf ("\n") ;
      Trav1  =  Branche_gauche ( & *R ) ;
      Verif1  =  Verif_branche_g ( & *R ) ;
      Clear_visited ( & *R ) ;
      Trav2  =  Leaf_gauche ( & *R ) ;
      Verif2  =  Verif_leaf_g ( & *R ) ;
-     printf ( " %s", "traverse 1 : branche par branche du gauche a droite" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n\n", "traverse 1 : branche par branche du gauche a droite" ) ;
      Print_liste ( & Trav1 ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "verification 1 : branche par branche du gauche a droite" ) ;
-     printf ( " %s", "" ) ;
+     printf ("\n") ;
+     printf ("\n") ;
+     printf ( " %s\n\n", "verification 1 : branche par branche du gauche a droite" ) ;
      Print_liste ( & Verif1 ) ;
-     printf ( " %s", "" ) ;
+     printf ("\n") ;
+     printf ("\n") ;
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav1,&Verif1) ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "traverse 2 : feuille par feuille du gauche a droite" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n\n\n", Comparer_listes(&Trav1,&Verif1)==1 ? "elles sont les meme" : "elles sont differentes" ) ;
+     printf ( " %s\n\n", "traverse 2 : feuille par feuille du gauche a droite" ) ;
      Print_liste ( & Trav2 ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "verification 2 : feuille par feuille du gauche a droite" ) ;
-     printf ( " %s", "" ) ;
+     printf ("\n") ;
+     printf ("\n") ;
+     printf ( " %s\n\n", "verification 2 : feuille par feuille du gauche a droite" ) ;
      Print_liste ( & Verif2 ) ;
-     printf ( " %s", "" ) ;
+     printf ("\n") ;
+     printf ("\n") ;
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav2,&Verif2) ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n\n\n", Comparer_listes(&Trav2,&Verif2)==1 ? "elles sont les meme" : "elles sont differentes" ) ;
      Trav3  =  Branche_droite ( & *R_copy ) ;
      Verif3  =  Verif_branche_d ( & *R_copy ) ;
      Clear_visited ( & *R_copy ) ;
      Trav4  =  Leaf_droite ( & *R_copy ) ;
      Verif4  =  Verif_leaf_d ( & *R_copy ) ;
-     printf ( " %s", "traverse 3 : branche par branche du droite a gauche" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n\n", "traverse 3 : branche par branche du droite a gauche" ) ;
      Print_liste ( & Trav3 ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "verification 3 : branche par branche du droite a gauche" ) ;
-     printf ( " %s", "" ) ;
+     printf ("\n");
+     printf ("\n");
+     printf ( " %s\n\n", "verification 3 : branche par branche du droite a gauche" ) ;
      Print_liste ( & Verif3 ) ;
-     printf ( " %s", "" ) ;
+     printf ( "\n");
+     printf ( "\n");
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav3,&Verif3) ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "traverse 4  : feuille par feuille du droite a gauche" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n\n\n", Comparer_listes(&Trav3,&Verif3)==1 ? "elles sont les meme" : "elles sont differentes" ) ;
+     printf ( " %s\n\n", "traverse 4  : feuille par feuille du droite a gauche" ) ;
      Print_liste ( & Trav4 ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "verification 4 : feuille par feuille du droite a gauche" ) ;
-     printf ( " %s", "" ) ;
+     printf ( "\n");
+     printf ( "\n");
+     printf ( " %s\n\n", "verification 4 : feuille par feuille du droite a gauche" ) ;
      Print_liste ( & Verif4 ) ;
-     printf ( " %s", "" ) ;
+     printf ( "\n");
+     printf ( "\n");
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav4,&Verif4) ) ;
-     printf ( " %s", "" ) ;
-    
+     printf ( " %s\n\n\n", Comparer_listes(&Trav4,&Verif4)==1 ? "elles sont les meme" : "elles sont differentes" ) ;
+     printf ( "\n");
     }
   /*------------------------------------------------------------------------------------*/
   void Affiche_resume (Pointeur_ATib *R , Pointeur_ATib *R_copy)
     {
 
       /** Corps du module **/
+     printf("\n");
      printf ( " %s", "est ce que l arbre est bien construit : " ) ;
-     printf ( " %d", Verifier_arb(&*R) ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n", Verifier_arb(&*R)==1 ? "oui" : "non" ) ;
+     printf("\n");
+     printf("\n");
      Trav1  =  Branche_gauche ( & *R ) ;
      Verif1  =  Verif_branche_g ( & *R ) ;
      Clear_visited ( & *R ) ;
      Trav2  =  Leaf_gauche ( & *R ) ;
      Verif2  =  Verif_leaf_g ( & *R ) ;
-     printf ( " %s", "traverse 1 : branche par branche du gauche a droite" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n", "traverse 1 : branche par branche du gauche a droite" ) ;
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav1,&Verif1) ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "traverse 2 : feuille par feuille du gauche a droite" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n", Comparer_listes(&Trav1,&Verif1)==1 ? "elles sont les meme" : "elles sont differentes" );
+     printf("\n");
+     printf("\n");
+     printf ( " %s\n", "traverse 2 : feuille par feuille du gauche a droite" ) ;
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav2,&Verif2) ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n", Comparer_listes(&Trav2,&Verif2)==1 ? "elles sont les meme" : "elles sont differentes" ) ;
+     printf("\n");
+     printf("\n");
      Trav3  =  Branche_droite ( & *R_copy ) ;
      Verif3  =  Verif_branche_d ( & *R_copy ) ;
      Clear_visited ( & *R_copy ) ;
      Trav4  =  Leaf_droite ( & *R_copy ) ;
      Verif4  =  Verif_leaf_d ( & *R_copy ) ;
-     printf ( " %s", "traverse 3 : branche par branche du droite a gauche" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n", "traverse 3 : branche par branche du droite a gauche" ) ;
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav3,&Verif3) ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %s", "traverse 2 : feuille par feuille du droite a gauche" ) ;
-     printf ( " %s", "" ) ;
+     printf ( " %s\n", Comparer_listes(&Trav3,&Verif3)==1 ? "elles sont les meme" : "elles sont differentes" ) ;
+     printf("\n");
+     printf("\n");
+     printf ( " %s\n", "traverse 2 : feuille par feuille du droite a gauche" ) ;
      printf ( " %s", "comparaison des deux listes : " ) ;
-     printf ( " %s", "" ) ;
-     printf ( " %d", Comparer_listes(&Trav4,&Verif4) ) ;
-     printf ( " %s", "" ) ;
-    
+     printf ( " %s\n", Comparer_listes(&Trav4,&Verif4)==1 ? "elles sont les meme" : "elles sont differentes" ) ;
+     printf("\n");
+     printf("\n");
     }
 
 void home_page()
@@ -1484,7 +1475,7 @@ void print_vertical(Pointeur_ATib root,int x,int y,int ne9es,int val) {
   }
 }
 
-void print_tree(Pointeur_ATib root, int space,int val)
+void print_tree(Pointeur_ATib root, int space,int val) //horizental display
 {
   if (root == NULL)
   {
@@ -1517,7 +1508,7 @@ void print_tree(Pointeur_ATib root, int space,int val)
 
 void print_animated_tree(Pointeur_ATib root,Pointeur_Li T ){
   while(T!=NULL){
-    // print_tree(root,0,Valeur_Li(T));
+    // print_tree(root,0,Valeur_Li(T)); //horizental display
     print_vertical(root,50,5,50,Valeur_Li(T));
     Sleep(1000);
     T=Suivant_Li(T);
@@ -1702,7 +1693,7 @@ void main_menu()
 { // the menu where the user manipulates the differente questions in the TP
     int val;
     int choice = 1; // the option choosed (set default to one)
-    int max_choice = 2; // the total number of options
+    int max_choice = 3; // the total number of options
     char c;             // the keyboard key pressed by the user
                         // loop until the user press ESC
     do
@@ -1741,6 +1732,9 @@ void main_menu()
                     break;
                 case 2:
                     printf("2) Tester les parcours par une arbre de votre choix%62c\033[0m#\n", 32);
+                    break;
+                case 3:
+                    printf("3) Tester les parcours sur les 10 arbres aliatoire %62c\033[0m#\n", 32);
                     break;
                 }
             }
@@ -1789,6 +1783,9 @@ void main_menu()
                 break;
             case 50: // '2'
                 choice = 2;
+                break;
+            case 51: // '3'
+                choice = 3;
                 break;
             case 13: // confirm the choice with Enter
                 c = 13;
@@ -1858,6 +1855,45 @@ void main_menu()
               R=Insertion(&R,&val,&Inserer);
             }
             sub_menu_1(R);
+            break;
+        case 3:
+            free_tree(R);
+            free_tree(R_copy);
+            printf ( " %s", "test sur les 10 arbres avec 100 noeuds : \n" ) ;
+            M  =  10 ;
+            N  =  100 ;
+            for( I  =  1 ;I <=  M ; ++I) {
+              R  =  NULL ;
+              R_copy  =  NULL ;
+              for( J  =  1 ;J <=  N ; ++J) {
+                Inserer  =  False ;
+                while( Inserer == False)  {
+                  Val  =  Aleanombre(1000 ) ;
+                  R  =  Insertion ( & R , & Val , & Inserer ) ;
+                  
+                } ;
+                R_copy  =  Insertion ( & R_copy , & Val , & Inserer ) ;
+                
+              } ;
+              printf ( " %s", "-----------------------------arbre" );
+              printf ( " %d", I );
+              printf ( " %s\n", "-----------------------------" ) ;
+              int choix;
+              do {
+                printf("est ce que vous voulez afficher l'arbre :\n 1) en details\n 2) just le resume\n");
+                printf("donner votre choix : ");
+                scanf("%d",&choix);
+              } while (choix!=1 && choix!=2);
+              if( choix == 1)   {
+                Affiche_tout ( & R , & R_copy ) ;
+                }
+              else
+                {
+                Affiche_resume ( & R , & R_copy ) ;
+                
+              }
+            } ; 
+            hold_results();
             break;
         }
     } while (choice != max_choice+1);
